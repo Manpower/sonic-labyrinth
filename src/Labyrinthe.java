@@ -1,9 +1,9 @@
 import java.util.*;
 
 class Labyrinthe {
-	
+
 	/**
-	 * voila comment le lab est genenré
+	 * voila comment le lab est genenrï¿½
 	 * 
 	 * - dimension =DIM
 	 * - cases =sommets
@@ -16,18 +16,18 @@ class Labyrinthe {
 	final static int SUD = 1;
 	final static int EST = 2;
 	final static int OUEST = 3;
-	
+
 	ArrayList<Arete> aretes;
 	ArrayList<Sommet> sommets;
 	ArrayList<Arete> ouvertures;
 	ArrayList<Arete> sorties;
 	Sommet[] initSommets;
 	int[][] defLab;
-	
+
 	int sortie; 
-	
+
 	Labyrinthe(){
-		
+
 		aretes = new ArrayList<Arete>();
 		ouvertures = new ArrayList<Arete>();
 		sommets = new ArrayList<Sommet>();
@@ -38,9 +38,9 @@ class Labyrinthe {
 		tri(aretes);
 		initLabyrinthe();
 		constructDefLab();
-		
+
 	}
-	
+
 	void initSomm(){
 		for (int i=0;i<initSommets.length;i++){
 			initSommets[i] = new Sommet(i);
@@ -65,8 +65,8 @@ class Labyrinthe {
 	ArrayList<Arete> selectAretes(){
 		ArrayList<Arete> selection = new ArrayList<Arete>();
 		for (int j=0;j<aretes.size();j++){
-				if (sommets.contains(aretes.get(j).s1)||sommets.contains(aretes.get(j).s2))
-					selection.add(aretes.get(j));
+			if (sommets.contains(aretes.get(j).s1)||sommets.contains(aretes.get(j).s2))
+				selection.add(aretes.get(j));
 		}
 		return selection;
 	}
@@ -88,7 +88,7 @@ class Labyrinthe {
 			j--;		
 		}
 	}
-	
+
 	void initLabyrinthe(){
 		ArrayList<Arete> liste;
 		int j;
@@ -112,46 +112,46 @@ class Labyrinthe {
 			ouvertures.add(liste.get(j));
 			aretes.remove(liste.get(j));
 		}
-		
+
 		sortieAleatoire();
 	}
-	//Création de la sortie du labyrinthe
+	//Crï¿½ation de la sortie du labyrinthe
 	void sortieAleatoire() {
 		Random rand = new Random();
 		this.sortie = (rand.nextInt(DIM) + 1)* DIM;
-		
+
 		System.out.println("Sortie : " + this.sortie);
 	}
-	
-	
+
+
 	void constructDefLab(){
 		defLab = new int[DIM*DIM][4];
-		
+
 		for (int i=0;i<DIM*DIM;i++){
 			defLab[i][NORD] = -1;
 			defLab[i][SUD] = -1;
 			defLab[i][EST] = -1;
 			defLab[i][OUEST] = -1;
 		}
-		
+
 		for (int i=0;i<ouvertures.size();i++){
 			if (ouvertures.get(i).s2.num-ouvertures.get(i).s1.num==1){
 				defLab[ouvertures.get(i).s1.num][EST] = ouvertures.get(i).s2.num;
 				defLab[ouvertures.get(i).s2.num][OUEST] = ouvertures.get(i).s1.num;
 			}
-			
+
 			else if (ouvertures.get(i).s2.num-ouvertures.get(i).s1.num==DIM){
 				defLab[ouvertures.get(i).s1.num][SUD] = ouvertures.get(i).s2.num;
 				defLab[ouvertures.get(i).s2.num][NORD] = ouvertures.get(i).s1.num;
 			}
 		}
-		// Sortie random mais toujours coté droit du labyrinthe
+		// Sortie random mais toujours cote droit du labyrinthe
 		defLab[this.sortie - 1][EST] = -2;
-		defLab[this.sortie][EST] = -2;
-		
+
+
 	}
-	
-	
+
+
 	/*
 	 * 
 	 * FONCTION 
@@ -164,10 +164,10 @@ class Labyrinthe {
 	 * -> renvoi true (par defaut) si c'est ouvert (donc absence du couple case 1 / case 2)
 	 * 
 	 */
-	
+
 	boolean siOuvert(int case1, int case2) {
 		boolean ouvert = true;
-		
+
 		for (int i=0; i<aretes.size(); i++) {
 			if (aretes.get(i).s1.num == case1) {
 				if (aretes.get(i).s2.num == case2)
@@ -178,10 +178,10 @@ class Labyrinthe {
 					ouvert = false;
 			}
 		}
-		
+
 		return ouvert;
 	}
-	
+
 	boolean siPorteSortie(int case1, int case2)
 	{
 		return (case1 == (this.sortie - 1) && case2 == this.sortie);

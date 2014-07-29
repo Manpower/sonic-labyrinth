@@ -57,5 +57,5 @@ public class Sound {
 		line.drain();
 		line.close();
 	}
-	
+
 }

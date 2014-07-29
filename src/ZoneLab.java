@@ -3,48 +3,48 @@ import java.awt.*;
 import javax.swing.*;
 
 class ZoneLab extends JPanel {
-	
+
 	/*
 	 * 
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
 	final static int NORD = 0;
 	final static int SUD = 1;
 	final static int EST = 2;
 	final static int OUEST = 3;
-	
+
 	Labyrinthe monLab;
 	int dimCase;
 	Personnage monPerso;
 	Image imagePerso;
 	int placeXY;
 
-	
+
 	ZoneLab(Labyrinthe unLab){
 		// Dimension du labyrinthe 
 		monLab = unLab;
 		setSize(800,800);
 		dimCase = 800/Labyrinthe.DIM;
-				
+
 		// creation du perso
 		monPerso = new Personnage(this);
 		ImageIcon perso = new ImageIcon("img/Sonic.gif");
 		imagePerso = perso.getImage();
-		
+
 		// centrage du perso 
 		placeXY = (dimCase-50)/2;
 		//musique 
-			
+
 	}
-	
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		dessineLab(g);
 		dessinePerso(g);
 	}
-	
+
 	void dessineLab(Graphics g){
 		int[][] tab = monLab.defLab;
 		int x = -1;
@@ -72,9 +72,9 @@ class ZoneLab extends JPanel {
 			}
 		}
 	}
-	
+
 	void dessinePerso(Graphics g) {
 		g.drawImage(imagePerso, dimCase*monPerso.getPersY()+placeXY, dimCase*monPerso.getPersX()+placeXY, null);
 	}
-	
+
 }
